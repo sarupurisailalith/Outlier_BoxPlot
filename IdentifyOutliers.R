@@ -47,3 +47,16 @@ ggplot(data=iris,aes(y = Sepal.Width, x = Species, fill=Species))+geom_boxplot(o
 # ggbrush sample execution 
 ggbrush(iris,"Species","Sepal.Width")
 
+
+
+
+# effect of outliers on regression equation 
+sampleData <- data.frame(x=c(1:20), y = c(4.2,6.6,12,12,15,17.5,21,23,26,30,31,33.7,36.6,40,46,44.5,47.5,55,52.8,55.3))
+fit <- lm(y~x, data = sampleData)
+ggplot(sampleData,aes(x=x,y=y))+geom_point()+geom_smooth(method='lm',se=FALSE)
+
+
+# adding outlier point to the above data and computing regression equation 
+sampleDataNew <- rbind(sampleData, data.frame(x=21,y=120))
+fitNew <- lm(y~x, data = sampleDataNew)
+ggplot(sampleDataNew,aes(x=x,y=y))+geom_point()+geom_smooth(method='lm',se=FALSE)
